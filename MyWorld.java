@@ -1,25 +1,41 @@
-import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
+import greenfoot.*;
 
-/**
- * Write a description of class MyWorld here.
- * 
- * @author (your name) 
- * @version (a version number or a date)
- */
 public class MyWorld extends World
 {
+    private static final int MAX_ROCKETS = 2;
+    private static final int MAX_BEE = 2;
+    private static final int MAX_BUTTERFLY = 2;
 
-    /**
-     * Constructor for objects of class MyWorld.
-     * 
-     */
     public MyWorld()
     {    
-        // Create a new world with 600x400 cells with a cell size of 1x1 pixels.
-        super(600, 400, 1); 
-        addObject(new flappybird(), 100, 200);
-        addObject(new bambu(), 300, 150);
-        addObject(new bambu(), 600, 150);
-        addObject(new score(), 300, 100);
+        super(800, 400, 1); 
+        addObject(new flappybird(), 100, getHeight() / 2);
+        prepare();
+    }
+
+    public void act()
+    {
+        int rocketCount = getObjects(Rocket.class).size();
+        int beeCount = getObjects(bee.class).size();
+        int butterflyCount = getObjects(butterfly.class).size();
+
+        if (Greenfoot.getRandomNumber(100) < 2 && rocketCount < MAX_ROCKETS)
+        {
+            addObject(new Rocket(), getWidth(), Greenfoot.getRandomNumber(getHeight()));
+        }
+
+        if (Greenfoot.getRandomNumber(100) < 2 && beeCount < MAX_BEE)
+        {
+            addObject(new bee(), getWidth(), Greenfoot.getRandomNumber(getHeight()));
+        }
+        
+        if (Greenfoot.getRandomNumber(100) < 2 && butterflyCount < MAX_BUTTERFLY)
+        {
+            addObject(new butterfly(), getWidth(), Greenfoot.getRandomNumber(getHeight()));
+        }
+    }
+    
+    private void prepare()
+    {
     }
 }
